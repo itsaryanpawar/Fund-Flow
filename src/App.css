@@ -1,0 +1,28 @@
+/* src/index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+/* Optional: Global smooth scrolling & focus */
+* {
+  scroll-behavior: smooth;
+}
+
+input:focus-visible {
+  outline: 2px solid #00d4ff;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
