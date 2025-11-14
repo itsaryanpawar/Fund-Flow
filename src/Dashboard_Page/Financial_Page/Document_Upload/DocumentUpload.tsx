@@ -282,6 +282,7 @@ const DocumentUpload: React.FC = () => {
                 {isUploading ? 'Saving...' : 'Save & Continue'} <ChevronRight size={18} />
               </button>
             </div>
+          
           </div>
         </section>
       </div>

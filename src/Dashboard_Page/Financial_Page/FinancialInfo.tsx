@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FinancialInfo.css';
 import { ProgressBar, useProgress, STEPS } from './Progress_Tracker/ProgressTracker';
+import { Routes, Route } from "react-router-dom";
+import EligibilityOffer from './Eligibility_Offer/EligibilityOffer';
 import { format } from 'date-fns';
 import {
   User, Calendar, Users, Heart, Phone, Mail, ChevronRight, Lock,
@@ -201,6 +203,7 @@ const FinancialInfo: React.FC = () => {
                 </div>
               </div>
             </section>
+            
 
             {/* ── Action ── */}
             <div className="action">
@@ -208,11 +211,15 @@ const FinancialInfo: React.FC = () => {
                 Next <ChevronRight size={18} />
               </button>
             </div>
+
+       
           </form>
         </section>
       </div>
     </div>
   );
 };
+
+
 
 export default FinancialInfo;

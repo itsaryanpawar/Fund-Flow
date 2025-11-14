@@ -21,7 +21,6 @@ import Reinsurance from './Reinsurance';
 import FinancialInfo from './Financial_Page/FinancialInfo';
 import { ProgressProvider } from './Financial_Page/Progress_Tracker/ProgressTracker';
 import EligibilityOffer from './Financial_Page/Eligibility_Offer/EligibilityOffer';
-import ReviewSubmit from './Financial_Page/Review_Submit/ReviewSubmit';
 import {
   Home as HomeIcon,
   FileText,
@@ -172,6 +171,8 @@ const Home: React.FC = () => {
         </div>
       </div>
     </div>
+    
+
   );
 };
 
@@ -186,6 +187,7 @@ const Dashboard: React.FC = () => {
       >
         {sidebarOpen ? 'Close' : 'Open'}
       </button>
+      
 
       <Sidebar isOpen={sidebarOpen} />
 
@@ -219,7 +221,6 @@ const Dashboard: React.FC = () => {
             <Route path="reinsurance" element={<Reinsurance />} />
             <Route path="*" element={<div className="not-found">Page Not Found</div>} />
             <Route path="/eligibility-offer" element={<EligibilityOffer />} />
-            <Route path="/review-submit" element={<ReviewSubmit />} />
 
             <Route
   path="financialinfo"
