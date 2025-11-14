@@ -3,9 +3,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   Home, Users, Target, Package, Building,
-  UserCheck, Shield, CheckSquare, User,
+  UserCheck, Shield, CheckSquare, User, ScrollText ,
   DollarSign, FileSignature, AlertCircle,
-  Wallet, BarChart3, RefreshCw, LogOut
+  Wallet, BarChart3,  LogOut
 } from 'lucide-react';
 import './Dashboard.css';
 
@@ -18,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     { to: '/Dashboard/financial', label: 'Loan Application Form', icon: DollarSign },
     { to: '/Dashboard/aim', label: 'AIM', icon: Target },
     { to: '/Dashboard/master', label: 'Master', icon: Package },
-    { to: '/Dashboard/Applicationstatus', label: 'Application Status', icon: RefreshCw },
+    { to: '/Dashboard/loan-status', label: 'Loan Status', icon: ScrollText },
     { to: '/Dashboard/product', label: 'Product', icon: Package },
     { to: '/Dashboard/entity', label: 'Entity', icon: Building },
     { to: '/Dashboard/member-enrollment', label: 'Member Enrollment', icon: UserCheck },

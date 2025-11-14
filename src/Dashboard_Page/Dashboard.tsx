@@ -7,6 +7,7 @@ import Sidebar from './Sidebar';
 import CRM from './CRM';
 import AIM from './AIM';
 import Master from './Master';
+import LoanStatus from './Loan_Status/LoanStatus';
 import Product from './Product';
 import Entity from './Entity';
 import MemberEnrollment from './MemberEnrollment';
@@ -17,10 +18,10 @@ import Endorsement from './Endorsement';
 import Claims from './Claims';
 import Fund from './Fund';
 import Reports from './Reports';
-import ApplicationTracker from './Application_Status/ApplicationTracker';
 import FinancialInfo from './Financial_Page/FinancialInfo';
 import { ProgressProvider } from './Financial_Page/Progress_Tracker/ProgressTracker';
 import EligibilityOffer from './Financial_Page/Eligibility_Offer/EligibilityOffer';
+
 import {
   Home as HomeIcon,
   FileText,
@@ -207,6 +208,7 @@ const Dashboard: React.FC = () => {
             <Route path="crm" element={<CRM />} />
             <Route path="aim" element={<AIM />} />
             <Route path="master" element={<Master />} />
+            <Route path="/loan-status" element={<LoanStatus />} />
             <Route path="product" element={<Product />} />
             <Route path="entity" element={<Entity />} />
             <Route path="member-enrollment" element={<MemberEnrollment />} />
@@ -218,7 +220,6 @@ const Dashboard: React.FC = () => {
             <Route path="claims" element={<Claims />} />
             <Route path="fund" element={<Fund />} />
             <Route path="reports" element={<Reports />} />
-            <Route path="applications" element={< ApplicationTracker />} />
             <Route path="*" element={<div className="not-found">Page Not Found</div>} />
             <Route path="/eligibility-offer" element={<EligibilityOffer />} />
 

@@ -3,14 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './FinancialInfo.css';
 import { ProgressBar, useProgress, STEPS } from './Progress_Tracker/ProgressTracker';
-import { Routes, Route } from "react-router-dom";
-import EligibilityOffer from './Eligibility_Offer/EligibilityOffer';
 import { format } from 'date-fns';
 import {
-  User, Calendar, Users, Heart, Phone, Mail, ChevronRight, Lock,
-  ChevronLeft,
+  User, Calendar, Users, Heart, Phone, Mail, ChevronRight, Lock, ChevronLeft,
 } from 'lucide-react';
 
+// Extended form interface to include optional CIBIL score
 interface Form {
   fullName: string;
   dob: string;
@@ -18,6 +16,7 @@ interface Form {
   maritalStatus: string;
   mobile: string;
   email: string;
+  cibilScore?: string;        // optional field
 }
 
 const FinancialInfo: React.FC = () => {
@@ -25,6 +24,8 @@ const FinancialInfo: React.FC = () => {
   const { markComplete } = useProgress();
 
   const [now, setNow] = useState(new Date());
+  const [showIneligibleModal, setShowIneligibleModal] = useState(false);
+
   const [form, setForm] = useState<Form>({
     fullName: '',
     dob: '',
@@ -32,40 +33,67 @@ const FinancialInfo: React.FC = () => {
     maritalStatus: '',
     mobile: '',
     email: '',
+    cibilScore: '',
   });
+
   const [errors, setErrors] = useState<Partial<Record<keyof Form, string>>>({});
 
-  // live IST clock
+  // Live IST clock
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
-    setForm(p => ({ ...p, [name]: value }));
-    if (errors[name as keyof Form]) setErrors(p => ({ ...p, [name]: undefined }));
+    setForm((prev) => ({ ...prev, [name]: value }));
+
+    // Clear error when user starts typing
+    if (errors[name as keyof Form]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
   };
 
   const validate = (): boolean => {
     const e: Partial<Record<keyof Form, string>> = {};
+
     if (!form.fullName.trim()) e.fullName = 'Full name is required';
     if (!form.dob) e.dob = 'Date of birth is required';
     if (!form.gender) e.gender = 'Select gender';
     if (!form.maritalStatus) e.maritalStatus = 'Select marital status';
-    if (!/^\d{10}$/.test(form.mobile)) e.mobile = '10-digit mobile number';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Valid email required';
+    if (!/^\d{10}$/.test(form.mobile)) e.mobile = 'Enter a valid 10-digit mobile number';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email';
+
+    // Optional CIBIL validation (only if user entered something)
+    if (form.cibilScore) {
+      const score = Number(form.cibilScore);
+      if (isNaN(score) || score < 300 || score > 900) {
+        e.cibilScore = 'CIBIL score must be between 300 and 900';
+      }
+    }
+
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
-  const onSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Run validation to show errors (but **do not block** navigation)
+    // Always validate (shows errors even if we later navigate)
     validate();
 
-    // ALWAYS mark step as complete and go to the next page
+    // If user entered a CIBIL score and it's below 600 → block navigation & show modal
+    if (form.cibilScore) {
+      const score = Number(form.cibilScore);
+      if (!isNaN(score) && score < 600) {
+        setShowIneligibleModal(true);
+        return; // stop navigation
+      }
+    }
+
+    // Otherwise → everything is fine, proceed
     markComplete(STEPS[0]);
     navigate('/application');
   };
@@ -75,7 +103,7 @@ const FinancialInfo: React.FC = () => {
   return (
     <div className="info-page">
       <div className="info-container">
-        {/* Header – Back | Progress | Time */}
+        {/* Header */}
         <header className="info-header">
           <button className="back-btn" onClick={() => navigate(-1)}>
             <ChevronLeft size={18} /> Back
@@ -98,8 +126,8 @@ const FinancialInfo: React.FC = () => {
             </p>
           </div>
 
-          <form onSubmit={onSubmit} className="info-form" noValidate>
-            {/* ── Personal ── */}
+          <form onSubmit={handleSubmit} className="info-form" noValidate>
+            {/* Personal Information */}
             <section className="form-section">
               <h2><User size={20} /> Personal Information</h2>
               <div className="grid">
@@ -147,7 +175,7 @@ const FinancialInfo: React.FC = () => {
                   {errors.gender && <p className="err">{errors.gender}</p>}
                 </div>
 
-                {/* Marital */}
+                {/* Marital Status */}
                 <div className="input-group">
                   <label><Heart size={16} /> Marital Status <span>*</span></label>
                   <select
@@ -167,7 +195,7 @@ const FinancialInfo: React.FC = () => {
               </div>
             </section>
 
-            {/* ── Contact ── */}
+            {/* Contact Information */}
             <section className="form-section">
               <h2><Phone size={20} /> Contact Information</h2>
               <div className="grid">
@@ -203,23 +231,54 @@ const FinancialInfo: React.FC = () => {
                 </div>
               </div>
             </section>
-            
 
-            {/* ── Action ── */}
+            {/* CIBIL Score (Optional) */}
+            <section className="form-section">
+              <h2>CIBIL Score Check (Optional)</h2>
+              <div className="grid">
+                <div className="input-group">
+                  <label>CIBIL Score (300–900)</label>
+                  <input
+                    type="number"
+                    name="cibilScore"
+                    value={form.cibilScore || ''}
+                    onChange={handleChange}
+                    placeholder="e.g. 720"
+                    min="300"
+                    max="900"
+                    className={errors.cibilScore ? 'error' : ''}
+                  />
+                  {errors.cibilScore && <p className="err">{errors.cibilScore}</p>}
+                </div>
+              </div>
+            </section>
+
+            {/* Submit Button */}
             <div className="action">
               <button type="submit" className="next-btn">
                 Next <ChevronRight size={18} />
               </button>
             </div>
-
-       
           </form>
         </section>
       </div>
+
+      {/* Ineligible Modal (simple example – style it as you wish) */}
+      {showIneligibleModal && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Application Ineligible</h2>
+            <p>
+              Your reported CIBIL score is below 600. Unfortunately, we cannot process your application at this time.
+            </p>
+            <button onClick={() => setShowIneligibleModal(false)} className="next-btn">
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-
-
 
 export default FinancialInfo;
