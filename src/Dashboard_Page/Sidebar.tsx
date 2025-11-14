@@ -18,6 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     { to: '/Dashboard/financial', label: 'Loan Application Form', icon: DollarSign },
     { to: '/Dashboard/aim', label: 'AIM', icon: Target },
     { to: '/Dashboard/master', label: 'Master', icon: Package },
+    { to: '/Dashboard/Applicationstatus', label: 'Application Status', icon: RefreshCw },
     { to: '/Dashboard/product', label: 'Product', icon: Package },
     { to: '/Dashboard/entity', label: 'Entity', icon: Building },
     { to: '/Dashboard/member-enrollment', label: 'Member Enrollment', icon: UserCheck },
@@ -32,7 +33,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     { to: '/Dashboard/claims', label: 'Claims', icon: AlertCircle },
     { to: '/Dashboard/fund', label: 'Fund', icon: Wallet },
     { to: '/Dashboard/reports', label: 'Reports', icon: BarChart3 },
-    { to: '/Dashboard/reinsurance', label: 'Reinsurance', icon: RefreshCw },
+  
   ];
 
   return (

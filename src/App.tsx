@@ -18,6 +18,7 @@ import ApplicationForm from "./Dashboard_Page/Financial_Page/Application_Form/Ap
 import DocumentUpload from "./Dashboard_Page/Financial_Page/Document_Upload/DocumentUpload";
 import EligibilityOffer from "./Dashboard_Page/Financial_Page/Eligibility_Offer/EligibilityOffer";
 import DetailsStatus from "./Dashboard_Page/Financial_Page/Detailes_status/Detailesstatus";
+import ApplicationTracker from "./Dashboard_Page/Application_Status/ApplicationTracker";
 
 
 
@@ -51,6 +52,7 @@ const App: React.FC = () => {
                       <Route path="/document-upload" element={<DocumentUpload />} />
                       <Route path="/eligibility-offer" element={<EligibilityOffer />} />
                       <Route path="details-status" element={<DetailsStatus />} />
+                      <Route path="/applications" element={<ApplicationTracker />} />
 
                       
                       

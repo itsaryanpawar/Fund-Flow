@@ -9,12 +9,9 @@ export const STEPS = [
   'Detailed Information',
   'KYC & Document Verification',
   'Eligibility & Offer',
-  'Review & Submit',
-  'Application Status / Tracking',
-  'Sanction Letter & Offer Acceptance',
-  'Loan Agreement & eSign',
-  'Disbursement Confirmation',
+  'Application Submit'
 ] as const;
+
 
 type Step = typeof STEPS[number];
 

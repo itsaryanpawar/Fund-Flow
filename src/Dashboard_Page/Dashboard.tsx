@@ -17,7 +17,7 @@ import Endorsement from './Endorsement';
 import Claims from './Claims';
 import Fund from './Fund';
 import Reports from './Reports';
-import Reinsurance from './Reinsurance';
+import ApplicationTracker from './Application_Status/ApplicationTracker';
 import FinancialInfo from './Financial_Page/FinancialInfo';
 import { ProgressProvider } from './Financial_Page/Progress_Tracker/ProgressTracker';
 import EligibilityOffer from './Financial_Page/Eligibility_Offer/EligibilityOffer';
@@ -218,7 +218,7 @@ const Dashboard: React.FC = () => {
             <Route path="claims" element={<Claims />} />
             <Route path="fund" element={<Fund />} />
             <Route path="reports" element={<Reports />} />
-            <Route path="reinsurance" element={<Reinsurance />} />
+            <Route path="applications" element={< ApplicationTracker />} />
             <Route path="*" element={<div className="not-found">Page Not Found</div>} />
             <Route path="/eligibility-offer" element={<EligibilityOffer />} />
 

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Detailesstatus.css";
 import DashboardHomeButton from "../../../components/DashboardHomeButton";
-
 interface FormData {
   loanType: string;
   name: string;
@@ -63,10 +62,10 @@ export default function DetailsStatus() {
     }
   };
 
-  const handleSubmit = () => {
-    console.log("Loan Application Submitted:", formData);
-    alert("Your loan application has been submitted successfully!");
-  };
+  // const handleSubmit = () => {
+  //   console.log("Loan Application Submitted:", formData);
+  //   alert("Your loan application has been submitted successfully!");
+  // };
 
   const handleReset = () => {
     if (window.confirm("Reset all fields?")) {
@@ -211,16 +210,25 @@ export default function DetailsStatus() {
             <button type="button" className="btn-reset" onClick={handleReset}>
               Reset Form
             </button>
-            <button type="button" className="btn-submit" onClick={handleSubmit}>
-              Submit Application
-            </button>
+            <button
+                type="button"
+                className="btn-submit"
+                onClick={() => <div>
+                
+                <DashboardHomeButton />  {/* That's it! */}
+              </div>}
+              >
+                Submit Application
+
+              </button>
 
                       {/* Dashboard BUtton Call  */}
               <div>
                 
                 <DashboardHomeButton />  {/* That's it! */}
               </div>
-          
+
+                       
           </div>
         </form>
       </div>
