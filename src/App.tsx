@@ -8,24 +8,19 @@ import {
   Link,
 } from "react-router-dom";
 
-import { ProgressProvider } from "./Dashboard_Page/Financial_Page/Progress_Tracker/ProgressTracker";
-
 import Login from "./Login_Page/Login";
 import Dashboard from "./Dashboard_Page/Dashboard";
-
+import { ProgressProvider } from "./Dashboard_Page/Financial_Page/Progress_Tracker/ProgressTracker";
 import FinancialInfo from "./Dashboard_Page/Financial_Page/FinancialInfo";
 import ApplicationForm from "./Dashboard_Page/Financial_Page/Application_Form/ApplicationForm";
 import DocumentUpload from "./Dashboard_Page/Financial_Page/Document_Upload/DocumentUpload";
 import EligibilityOffer from "./Dashboard_Page/Financial_Page/Eligibility_Offer/EligibilityOffer";
 import DetailsStatus from "./Dashboard_Page/Financial_Page/Detailes_status/Detailesstatus";
 
-
-
 const App: React.FC = () => {
   return (
     <ProgressProvider>
       <BrowserRouter>
-        {/* Top navigation bar (only for non-dashboard pages) */}
         <Routes>
           {/* 1. All public / application flow pages */}
           <Route
@@ -50,10 +45,7 @@ const App: React.FC = () => {
                       <Route path="/application" element={<ApplicationForm />} />
                       <Route path="/document-upload" element={<DocumentUpload />} />
                       <Route path="/eligibility-offer" element={<EligibilityOffer />} />
-                      <Route path="details-status" element={<DetailsStatus />} />
-
-                      
-                      
+                      <Route path="/details-status" element={<DetailsStatus />} />
 
                       {/* Success page */}
                       <Route
@@ -74,7 +66,7 @@ const App: React.FC = () => {
                         }
                       />
 
-                      {/* Catch-all for unknown routes in this section */}
+                      {/* Catch-all */}
                       <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                   </div>
@@ -83,11 +75,10 @@ const App: React.FC = () => {
             }
           />
 
-          {/* 2. THE MOST IMPORTANT PART – Dashboard with ALL nested routes */}
+          {/* 2. Dashboard route */}
           <Route path="/dashboard/*" element={<Dashboard />} />
 
-          {/* Optional: redirect root to dashboard if user is already logged in */}
-          <Route path="/" element={<Navigate to="/dashboard/home" replace />} />
+          {/* ❌ Removed the wrong redirect */}
         </Routes>
       </BrowserRouter>
     </ProgressProvider>
