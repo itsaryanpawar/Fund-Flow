@@ -16,7 +16,7 @@ interface Form {
   maritalStatus: string;
   mobile: string;
   email: string;
-  cibilScore?: string;        // optional field
+  cibilScore?: string;        
 }
 
 const FinancialInfo: React.FC = () => {
@@ -232,9 +232,9 @@ const FinancialInfo: React.FC = () => {
               </div>
             </section>
 
-            {/* CIBIL Score (Optional) */}
+            {/* CIBIL Score  */}
             <section className="form-section">
-              <h2>CIBIL Score Check (Optional)</h2>
+              <h2>CIBIL Score Check </h2>
               <div className="grid">
                 <div className="input-group">
                   <label>CIBIL Score (300–900)</label>
